@@ -1,0 +1,13 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+      -  "8080:80"
+    volumes:
+      - "www2:/var/www/html"
+#  wordpress:
+ #   image: wordpress
+    #ports:
+     # - 8080:80
+  #  volumes:
+   #   - ./www:/var/www/html
