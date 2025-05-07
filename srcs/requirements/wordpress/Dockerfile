@@ -12,4 +12,8 @@ RUN apt -y update && \
     apt install php-fpm php-mysql -y && \
     apt -y install curl
 
-CMD ["tail", "-f"];
+COPY tools/init.sh /init.sh
+RUN chmod +x /init.sh
+
+WORKDIR /var/www/html
+CMD [ "/init.sh" ]

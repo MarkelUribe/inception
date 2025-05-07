@@ -4,10 +4,22 @@ services:
     ports:
       -  "8080:80"
     volumes:
-      - "www2:/var/www/html"
+      - "www:/var/www/html"
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
 #  wordpress:
  #   image: wordpress
     #ports:
      # - 8080:80
   #  volumes:
    #   - ./www:/var/www/html
+
+
+volumes:
+  db_data:
+  www:
