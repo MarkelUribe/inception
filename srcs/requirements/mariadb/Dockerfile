@@ -7,4 +7,4 @@ RUN apt update && \
 
 EXPOSE 3306
 
-CMD ["mysqld_safe"]
+CMD ["mysqld"]
