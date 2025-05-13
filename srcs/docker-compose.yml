@@ -1,20 +1,33 @@
 services:
   nginx:
+    container_name: nginx
+    build: ./requirements/nginx
     image: nginx
     ports:
-      -  "8080:80"
+      -  "433:433"
     volumes:
       - ./www:/var/www/html
   mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
     build:
       context: ./requirements/mariadb
     volumes:
       - ./db_data:/var/lib/mysql
     ports:
       - "3306:3306"
-#  wordpress:
- #   image: wordpress
-    #ports:
-     # - 8080:80
-  #  volumes:
-   #   - ./www:/var/www/html
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    image: wordpress
+    ports:
+      - 9000:9000
+    volumes:
+      - ./www:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+
+networks:
+  inception:

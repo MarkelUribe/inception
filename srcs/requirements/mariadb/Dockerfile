@@ -1,10 +1,11 @@
 FROM debian:oldstable
 
-RUN apt update && \ 
-    apt install mariadb-server -y && \ 
-    mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld
+ENV DEBIAN_FRONTEND=noninteractive
 
-EXPOSE 3306
+RUN apt update 
+RUN apt install mariadb-server -y
+RUN mkdir -p /var/run/mysqld /var/lib/mysql
+RUN chown -R mysql:mysql /var/run/mysqld /var/lib/mysql && \
+ chmod 755 /var/run/mysqld
 
-CMD ["mysqld"]
+CMD ["mysqld", "--user=root"]

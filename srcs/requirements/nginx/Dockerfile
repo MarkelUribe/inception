@@ -7,6 +7,5 @@ RUN apt -y update && \
 
 COPY ./conf/default.conf /etc/nginx/sites-available/default
 
-EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
