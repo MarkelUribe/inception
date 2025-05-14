@@ -1,14 +1,10 @@
 FROM debian:oldstable
 
-LABEL maintainer="muribe-l"
+RUN apt update && \
+    apt -y install php-fpm php-mysqli curl
 
-RUN apt -y update && \
-    apt -y install wordpress && \
-    apt install php-fpm php-mysql -y && \
-    apt -y install curl
+COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./script.sh .
+RUN chmod +x script.sh
 
-#COPY tools/init.sh /init.sh
-#RUN chmod +x /init.sh
-
-WORKDIR /var/www/html
-#CMD [ "/init.sh" ]
+CMD ["./script.sh"]
