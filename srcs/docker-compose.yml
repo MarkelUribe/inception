@@ -4,9 +4,11 @@ services:
     build: ./requirements/nginx
     image: nginx
     ports:
-      -  "433:433"
+      -  "8080:443"
     volumes:
       - ./www:/var/www/html
+    depends_on:
+      - wordpress
     networks:
       - inception
   mariadb:
@@ -15,7 +17,7 @@ services:
     volumes:
       - ./db_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3306"
     networks:
       - inception
   wordpress:
