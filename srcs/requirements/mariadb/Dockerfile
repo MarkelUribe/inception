@@ -3,11 +3,13 @@ FROM debian:oldstable
 RUN apt update
 RUN apt install -y mariadb-server
 
-RUN mkdir /run/mysqld
+#RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
+#RUN chown -R mysql:mysql /var/lib/mysql
 
-RUN mysql_install_db --user=mysql --ldata=/var/lib/mysql
+#RUN mysql_install_db --user=mysql --ldata=/var/lib/mysql
 
-COPY init.sql /etc/mysql/
-COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+#COPY init.sql /etc/mysql/
+#COPY 50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-CMD ["mysqld"]
+CMD ["mysqld_safe"]
+#CMD ["tail", "-f"]
