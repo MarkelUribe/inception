@@ -1,5 +1,7 @@
 
 server {
+    server_name DOMAIN_NAME;
+
     index index.php index.html;
     
     location / {
@@ -8,10 +10,10 @@ server {
 
     ssl_protocols TLSv1.3;
     listen 443 ssl;
-    listen [::]:443 ssl;
+    listen [::]:433 ssl;
     root /var/www/html;
-    ssl_certificate selfsigned.crt;
-    ssl_certificate_key selfsigned.key;
+    ssl_certificate /run/secrets/selfsigned.crt;
+    ssl_certificate_key /run/secrets/selfsigned.key;
 
 
 	location ~ \.php$ {

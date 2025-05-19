@@ -1,25 +1,30 @@
 services:
   nginx:
     container_name: nginx
-    build: ./requirements/nginx
+    build: ./requirements/nginx/.
     image: nginx
     ports:
-      -  "8080:443"
+      -  "443:443"
     volumes:
-      - ./www:/var/www/html
+      - /home/muribe-l/data/www:/var/www/html
+    secrets:
+      - selfsigned.key
+      - selfsigned.crt
     depends_on:
       - wordpress
     networks:
       - inception
+    restart: always
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
     volumes:
-      - ./db_data:/var/lib/mysql
+      - /home/muribe-l/data/db_data:/var/lib/mysql
     ports:
       - "3306"
     networks:
       - inception
+    restart: always
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
@@ -27,12 +32,19 @@ services:
     expose:
       - 9000
     volumes:
-      - ./www:/var/www/html
+      - /home/muribe-l/data/www:/var/www/html
     depends_on:
       - mariadb
     networks:
       - inception
+    restart: always
 
 networks:
   inception:
     driver: bridge
+
+secrets:
+  selfsigned.key:
+    file: ../secrets/selfsigned.key
+  selfsigned.crt:
+    file: ../secrets/selfsigned.crt
