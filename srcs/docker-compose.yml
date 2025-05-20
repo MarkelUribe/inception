@@ -6,7 +6,7 @@ services:
     ports:
       -  "443:443"
     volumes:
-      - /home/muribe-l/data/www:/var/www/html
+      - /home/${USER}/data/www:/var/www/html
     secrets:
       - selfsigned.key
       - selfsigned.crt
@@ -18,21 +18,24 @@ services:
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
+    env_file:
+      - .env
     volumes:
-      - /home/muribe-l/data/db_data:/var/lib/mysql
+      - /home/${USER}/data/db_data:/var/lib/mysql
     ports:
       - "3306"
     networks:
       - inception
     restart: always
   wordpress:
-    build: ./requirements/wordpress
     container_name: wordpress
-    image: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - .env
     expose:
       - 9000
     volumes:
-      - /home/muribe-l/data/www:/var/www/html
+      - /home/${USER}/data/www:/var/www/html
     depends_on:
       - mariadb
     networks:
