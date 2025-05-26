@@ -14,6 +14,8 @@ services:
       - wordpress
     networks:
       - inception
+    env_file:
+      - .env
     restart: always
   mariadb:
     build: ./requirements/mariadb
@@ -22,6 +24,8 @@ services:
       - .env
     volumes:
       - /home/${USER}/data/db_data:/var/lib/mysql
+    secrets:
+      - db_pwd.txt
     ports:
       - "3306"
     networks:
@@ -36,6 +40,12 @@ services:
       - 9000
     volumes:
       - /home/${USER}/data/www:/var/www/html
+    secrets:
+      - wp_admin_e.txt
+      - wp_admin_n.txt
+      - wp_admin_p.txt
+      - wp_user_p.txt
+      - db_pwd.txt
     depends_on:
       - mariadb
     networks:
@@ -51,3 +61,13 @@ secrets:
     file: ../secrets/selfsigned.key
   selfsigned.crt:
     file: ../secrets/selfsigned.crt
+  db_pwd.txt:
+    file: ../secrets/db_pwd.txt
+  wp_admin_e.txt:
+    file: ../secrets/wp_admin_e.txt
+  wp_admin_n.txt:
+    file: ../secrets/wp_admin_n.txt
+  wp_admin_p.txt:
+    file: ../secrets/wp_admin_p.txt
+  wp_user_p.txt:
+    file: ../secrets/wp_user_p.txt
