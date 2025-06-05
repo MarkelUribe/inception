@@ -30,7 +30,11 @@ $(ENVIRONMENT):
 	WP_USER_R=<value>\n" > $@
 
 up:
-	docker-compose -f srcs/docker-compose.yml up --build -d
+	mkdir -p /home/$(USER)/data/db_data
+	mkdir -p /home/$(USER)/data/www
+	sudo chmod -R 755 /home/$(USER)/data
+	sudo chmod -R 755 /home/$(USER)/data/db_data
+	docker-compose -f srcs/docker-compose.yml up --build
 
 down: 
 	docker-compose -f ./srcs/docker-compose.yml down 
@@ -39,11 +43,10 @@ down:
 clean: down
 	docker system prune -af
 	docker volume prune -f
-
+	sudo rm -fr /home/$(USER)/data
 
 fclean: clean
 	rm -fr secrets
-	sudo rm -fr /home/$(USER)/data
 	rm srcs/.env
 
 re: clean up

@@ -34,7 +34,7 @@ bind-address            = mariadb
 # * Fine Tuning
 #
 
-#key_buffer_size        = 128M
+#key_buffer_size        = 512M
 #max_allowed_packet     = 1G
 #thread_stack           = 192K
 #thread_cache_size      = 8

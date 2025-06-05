@@ -6,7 +6,7 @@ services:
     ports:
       -  "443:443"
     volumes:
-      - /home/${USER}/data/www:/var/www/html
+      - www:/var/www/html
     secrets:
       - selfsigned.key
       - selfsigned.crt
@@ -23,7 +23,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /home/${USER}/data/db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     secrets:
       - db_pwd.txt
     ports:
@@ -39,7 +39,7 @@ services:
     expose:
       - 9000
     volumes:
-      - /home/${USER}/data/www:/var/www/html
+      - www:/var/www/html
     secrets:
       - wp_admin_e.txt
       - wp_admin_n.txt
@@ -51,6 +51,22 @@ services:
     networks:
       - inception
     restart: always
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/db_data
+      o: bind
+
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/www
+      o: bind
+
 
 networks:
   inception:
