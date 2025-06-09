@@ -57,14 +57,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/db_data
+      device: /home/markel/data/db_data
       o: bind
 
   www:
     driver: local
     driver_opts:
       type: none
-      device: /home/${USER}/data/www
+      device: /home/markel/data/www
       o: bind
 
 

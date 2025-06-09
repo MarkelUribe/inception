@@ -30,10 +30,10 @@ $(ENVIRONMENT):
 	WP_USER_R=<value>\n" > $@
 
 up:
-	mkdir -p /home/$$USER/data/db_data
-	mkdir -p /home/$$USER/data/www
-	sudo chmod -R 755 /home/$$USER/data
-	sudo chmod -R 755 /home/$$USER/data/db_data
+	mkdir -p /home/markel/data/db_data
+	mkdir -p /home/markel/data/www
+	sudo chmod -R 755 /home/markel/data
+	sudo chmod -R 755 /home/markel/data/db_data
 	docker-compose -f srcs/docker-compose.yml up --build
 
 down: 
@@ -43,8 +43,8 @@ down:
 clean: down
 	docker system prune -af
 	docker volume prune -f
-	echo "Deleting /home/$$USER/data..."
-	sudo rm -fr /home/$$USER/data
+	echo "Deleting /home/markel/data..."
+	sudo rm -fr /home/markel/data
 
 fclean: clean
 	rm -fr secrets

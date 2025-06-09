@@ -6,9 +6,9 @@ echo "🐬 Starting MariaDB container..."
 DB_PWD=$(cut -d '=' -f2 /run/secrets/db_pwd.txt)
 
 # Check if data directory is already initialized
-if [  ! -f initflag  ]; then
+if [  ! -f /var/lib/mysql/initflag  ]; then
     echo "📦 First-time setup: initializing MariaDB database..."
-    mariadb-install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+    mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
     cat <<EOF > /etc/mysql/init.sql
     CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;
@@ -17,7 +17,7 @@ if [  ! -f initflag  ]; then
     FLUSH PRIVILEGES;
 EOF
 
-touch initflag
+    touch /var/lib/mysql/initflag
 fi
 
 # Start MariaDB
