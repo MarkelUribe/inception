@@ -15,8 +15,6 @@ sleep 3
 echo "✅ MariaDB is up!"
 ./wp-cli.phar core download --allow-root
 ./wp-cli.phar config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PWD" --dbhost=mariadb:3306 --allow-root
-#./wp-cli.phar config set WP_HOME "$DOMAIN_NAME" --allow-root
-#./wp-cli.phar config set WP_SITEURL "$DOMAIN_NAME" --allow-root
 ./wp-cli.phar core install --url="$DOMAIN_NAME" --title="$WP_TITLE" --admin_user="$WP_ADMIN_N" --admin_password="$WP_ADMIN_P" --admin_email="$WP_ADMIN_E" --allow-root
 ./wp-cli.phar user create "$WP_USER_N" "$WP_USER_E" --user_pass="$WP_USER_P" --role="$WP_USER_R" --allow-root
 echo "Wordpress setup done!"
